@@ -2,7 +2,7 @@
 
 **Datenbanken · Fachschule für Künstliche Intelligenz · 17.09.2026**
 
-Name: ______________________________  Partner/in: ______________________________
+*Lesefassung. Die Vorlage zum Ausfüllen bekommen Sie im Unterricht auf Papier — hier sind die Schreiblinien entfernt.*
 
 ---
 
@@ -66,19 +66,19 @@ Vergleichen Sie Ihre Notizen. Ergänzen Sie, was Ihr Partner gefunden hat und Si
 Einigen Sie sich dann auf die **drei ärgerlichsten** Stellen — ärgerlich heißt: Wenn Sie
 diesen Verein leiten müssten, würde Sie genau das aufhalten.
 
-**Unser Fund 1:** ________________________________________________________
+**Unser Fund 1:**
 
-*Was geht dadurch kaputt?* ______________________________________________
+*Was geht dadurch kaputt?*
 
-**Unser Fund 2:** ________________________________________________________
+**Unser Fund 2:**
 
-*Was geht dadurch kaputt?* ______________________________________________
+*Was geht dadurch kaputt?*
 
-**Unser Fund 3:** ________________________________________________________
+**Unser Fund 3:**
 
-*Was geht dadurch kaputt?* ______________________________________________
+*Was geht dadurch kaputt?*
 
-Wer von Ihnen beiden trägt vor? ____________________
+Wer von Ihnen beiden trägt vor?
 
 ---
 
@@ -89,14 +89,6 @@ und im OneNote-Klassennotizbuch festgehalten.
 
 Notieren Sie hier mit, was Sie selbst nicht gefunden hatten:
 
-_______________________________________________________________________
-
-_______________________________________________________________________
-
-_______________________________________________________________________
-
-_______________________________________________________________________
-
 ---
 
 ## 6 · Die drei Wörter
@@ -105,15 +97,15 @@ Ordnen Sie am Ende der Besprechung Ihre Funde zu. Ein Fund darf zu mehreren pass
 
 **Redundanz** — dieselbe Information steht mehrfach.
 
-Mein Beispiel aus der Liste: ____________________________________________
+Mein Beispiel aus der Liste:
 
 **Widerspruch** — zwei Angaben widersprechen sich, und niemand weiß, welche stimmt.
 
-Mein Beispiel aus der Liste: ____________________________________________
+Mein Beispiel aus der Liste:
 
 **Suchbarkeit** — die Antwort steckt in den Daten, ist aber nicht verlässlich herauszuholen.
 
-Mein Beispiel aus der Liste: ____________________________________________
+Mein Beispiel aus der Liste:
 
 ---
 
@@ -155,12 +147,6 @@ einer Stelle steht.
 Skizzieren Sie: Welche Blätter brauchen Sie? Welche Spalten hat jedes? Und woran erkennt man,
 welche Zeile aus Blatt A zu welcher Zeile aus Blatt B gehört?
 
-_______________________________________________________________________
-
-_______________________________________________________________________
-
-_______________________________________________________________________
-
 *Wer das löst, hat vorweggenommen, was wir in den Stunden 08 bis 11 systematisch lernen.*
 
 ---
@@ -180,16 +166,10 @@ Beschreiben Sie jede in **zwei Sätzen**:
 2. Was ginge schief, wenn es sie nicht gäbe — oder wenn stattdessen eine Excel-Liste wie die
    des TSV Grünwiese geführt würde?
 
-**Datenbank 1:** ________________________________________________________
+**Datenbank 1:**
 
-_______________________________________________________________________
+**Datenbank 2:**
 
-**Datenbank 2:** ________________________________________________________
-
-_______________________________________________________________________
-
-**Datenbank 3:** ________________________________________________________
-
-_______________________________________________________________________
+**Datenbank 3:**
 
 *Mindestens eine davon soll aus Ihrem eigenen Betrieb kommen.*
