@@ -2,7 +2,7 @@
 
 **Datenbanken · Fachschule für Künstliche Intelligenz · 24.09.2026**
 
-Name: ______________________________
+*Lesefassung. Die Vorlage zum Ausfüllen bekommen Sie im Unterricht auf Papier — hier sind die Schreiblinien entfernt.*
 
 *In diesem Skript: die Arbeitsaufträge der Stunde · die Hausaufgabe.*
 
@@ -42,13 +42,11 @@ Die Vorschau muss **11 Spalten** zeigen, beginnend mit `Nr`. Erst dann auf *OK*.
 #### Teil B — Was hat der Import daraus gemacht?
 
 **d)** Reiter **Datenbankstruktur**, Tabelle `mitglieder` aufklappen. Welchen Datentyp hat die
-Spalte `Nr`? ___________  Und `PLZ`? ___________  Und `Beitrag`? ___________
+Spalte `Nr`? … Und `PLZ`? … Und `Beitrag`?
 
 Was fällt Ihnen bei allen elf Spalten auf?
 
-_______________________________________________________________________
-
-**e)** Reiter **Daten durchsuchen**. Wie viele Datensätze enthält `mitglieder`? ___________
+**e)** Reiter **Daten durchsuchen**. Wie viele Datensätze enthält `mitglieder`?
 
 #### Teil C — Vier Klicks, vier Entdeckungen
 
@@ -57,42 +55,28 @@ Zellen sind hier direkt editierbar.
 
 **f)** Auf `Nr` klicken. Notieren Sie die ersten **sechs** Werte von oben nach unten:
 
-____ ____ ____ ____ ____ ____
-
 Ist das die Reihenfolge, die Sie erwartet haben? Woran könnte das liegen?
 
-_______________________________________________________________________
-
-**g)** Auf `Geburtstag` klicken. Der oberste Eintrag ist ___________________ .
+**g)** Auf `Geburtstag` klicken. Der oberste Eintrag ist ….
 Wonach ist die Spalte sortiert — nach Jahr, nach Monat oder nach Tag?
 
-_______________________________________________________________________
-
 **h)** Auf `Trainer` klicken. Wie viele **verschiedene Schreibweisen** stehen untereinander?
-___________  Wie viele **Personen** sind das in Wirklichkeit? ___________
+… Wie viele **Personen** sind das in Wirklichkeit?
 
-Und dieselbe Frage für `Telefon Trainer`: wie viele verschiedene Nummern? ___________
+Und dieselbe Frage für `Telefon Trainer`: wie viele verschiedene Nummern?
 
 **i)** Auf `Mitglied` klicken. Wer steht mehrfach in der Liste? Und was ist mit **Anna Baur**
 in Zeile 7 — eine eigene Person oder ein Tippfehler? Woran würden Sie das entscheiden?
 
-_______________________________________________________________________
-
 #### Teil D — Eine gebaute Datenbank daneben
 
 **j)** *Datenbank öffnen* → `bibliothek.db`. Reiter **Datenbankstruktur**: Wie viele Tabellen
-enthält sie? ___________  Notieren Sie die Namen.
-
-_______________________________________________________________________
+enthält sie? … Notieren Sie die Namen.
 
 Welche Datentypen stehen hier bei den Spalten — auch überall `TEXT`?
 
-_______________________________________________________________________
-
 **k)** Tabelle `buch`, Spalte `verlag_id`. Dort stehen nur Zahlen, keine Verlagsnamen. Was
 vermuten Sie: wofür steht diese Zahl?
-
-_______________________________________________________________________
 
 *Es gibt heute noch keine endgültige Antwort — wir klären das in Stunde 03. Jede begründete
 Vermutung zählt.*
@@ -123,23 +107,21 @@ Stunde 01 sind dort alle drei nachweisbar.
 **a)** Nennen Sie zu **jedem** der drei Wörter **eine** Stelle in `mitglieder`, an der Sie es
 gerade gesehen haben. Spaltenname genügt.
 
-Redundanz: ___________________________________________________________
+Redundanz:
 
-Widerspruch: _________________________________________________________
+Widerspruch:
 
-Suchbarkeit: _________________________________________________________
+Suchbarkeit:
 
 **b)** Der Import hat aus der Liste eine Datenbanktabelle gemacht. Ist damit eines der drei
 Probleme gelöst? Begründen Sie in einem Satz.
 
-_______________________________________________________________________
-
 **c)** Nennen Sie **zwei** Aufgaben eines DBMS aus dem Input von heute, die diese Probleme
 lösen *würden* — wenn die Tabelle richtig gebaut wäre.
 
-1. ____________________________________________________________________
+1.
 
-2. ____________________________________________________________________
+2.
 
 ---
 
@@ -149,11 +131,7 @@ Zwei Mitarbeiter der Werkstatt öffnen dieselbe Auftragsliste. Beide tragen zur 
 
 **a)** Was passiert in einer Excel-Datei auf einem Netzlaufwerk?
 
-_______________________________________________________________________
-
 **b)** Was macht ein Datenbanksystem anders?
-
-_______________________________________________________________________
 
 ---
 
@@ -174,8 +152,6 @@ Ordnen Sie jede Aussage der richtigen Ebene zu: **E** = extern, **K** = konzepti
 
 **Anschlussfrage:** Bei welchen der sechs Änderungen müssen die Anwendungsprogramme angepasst werden? Warum ist das eine gute Nachricht?
 
-_______________________________________________________________________
-
 ---
 
 ### Z1 — Zusatz: Es gibt keine eine Antwort (freiwillig)
@@ -184,9 +160,9 @@ Suchen Sie **zwei** Karten heraus, bei denen ein zweiter Typ ebenfalls vertretba
 
 Beschreiben Sie für jede: Welcher zweite Typ? Was gewinnt man, was verliert man?
 
-Karte ____ : ___________________________________________________________
+Karte …:
 
-Karte ____ : ___________________________________________________________
+Karte …:
 
 *Diese Abwägung ist genau das, was Sie im Projekt im Juli begründen müssen.*
 
