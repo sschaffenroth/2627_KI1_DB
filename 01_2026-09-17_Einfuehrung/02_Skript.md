@@ -147,43 +147,7 @@ Kartoffelsalat die Probe aufs Exempel. Das Ergebnis wird Sie überraschen.
 
 ---
 
-## 8 · So arbeiten wir in diesem Fach
-
-- **Jede Stunde:** kurzes Aufwärmen → Input → Übung am Rechner → Sicherung
-- **Ein Beispiel durch das ganze Jahr:** eine Stadtbibliothek
-- **Ab Stunde 02:** Ihre eigene Datenbank — eine Datei, die bis Juli mitwächst
-- **Werkzeug:** DB Browser for SQLite. Portabel, kostenlos, keine Adminrechte nötig
-- **Ab April** zusätzlich ein echter Server: PostgreSQL
-- **Ablage:** ein Ordner je Termin mit Skript, Arbeitsaufträgen und Lösung
-- **Noten:** zwei Schulaufgaben (Januar und Juni), die Projektpräsentation im Juli, dazu
-  mündliche Noten aus Kurzvorträgen, Abgaben und Mitarbeit
-
----
-
-## 9 · V1 — Standortbestimmung
-
-*Einzelarbeit. Wird eingesammelt und nicht benotet — sie hilft mir, den Unterricht auf Sie
-einzustellen.*
-
-**a)** Womit haben Sie beruflich oder privat schon zu tun gehabt?
-
-☐ Excel oder Calc über einfache Listen hinaus
-☐ Access, FileMaker oder Ähnliches
-☐ SQL geschrieben
-☐ Eine Programmiersprache
-☐ Nichts davon
-
-**b)** Wo begegnen Ihnen im Betrieb Daten, die eine Datenbank bräuchten?
-
-_______________________________________________________________________
-
-**c)** Was möchten Sie am Ende dieses Schuljahres können?
-
-_______________________________________________________________________
-
----
-
-## 10 · Z1 — Zusatzauftrag für Schnelle (freiwillig)
+## 8 · Z1 — Zusatzauftrag für Schnelle (freiwillig)
 
 Zerlegen Sie die Liste in **mehrere** Tabellenblätter, sodass jede Information nur noch an
 einer Stelle steht.
@@ -201,7 +165,7 @@ _______________________________________________________________________
 
 ---
 
-## 11 · Hausaufgabe
+## 9 · Hausaufgabe
 
 **Abgabe: mündlich zu Beginn von Stunde 02 am 24.09.2026.**
 
