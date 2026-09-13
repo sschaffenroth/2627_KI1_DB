@@ -1,0 +1,32 @@
+# Was in diesem Repository nichts verloren hat.
+# Diese Datei wird von schueler_repo.py als .gitignore hochgeladen —
+# geändert wird sie hier, nicht im Klon.
+
+# Datenbankdateien. Die Datenbank baut sich jede und jeder selbst aus
+# bibliothek.sql — eine .db-Datei ist ein Binärklotz, der bei jedem
+# Speichern komplett neu im Repository landet.
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Sicherungen und Zwischenstände
+*.bak
+*.tmp
+*~
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Betriebssystem und Editoren
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# Office-Zwischendateien
+~$*
