@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listen-Spielplatz</title>
+<meta name="description" content="Python-Listen ausprobieren: append, insert, remove, count, clear, Index — mit Bild. Grundlagen der Programmierung, KI 1.">
+<style>
+:root{
+  --blau:#156082; --orange:#E97132; --dunkel:#0E2841; --grau:#5f6b72;
+  --hell:#F2F4F5; --zart:#FBE5D6; --hellblau:#DCEBF2; --rot:#B3261E; --gruen:#2E7D32;
+  --bg:#ffffff; --text:#0E2841; --karte:#F2F4F5; --rand:#d5dbde; --konsole:#0E2841; --konsoletext:#f2f4f5;
+  --fach:#ffffff;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#10161c; --text:#e8eef2; --karte:#1a232b; --rand:#2c3a45; --hell:#1a232b;
+    --zart:#4a2a16; --hellblau:#173546; --fach:#13202a; --grau:#9fb0ba; --konsole:#0a0f14;
+    --blau:#4fa3c9; --dunkel:#e8eef2;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);
+  font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,"Aptos",sans-serif}
+header{background:#0E2841;color:#fff;padding:10px 16px}
+header h1{margin:0 auto;max-width:948px;font-size:1.2rem;letter-spacing:.2px}
+main{max-width:980px;margin:0 auto;padding:14px 16px 40px}
+code,.mono,input,textarea{font-family:ui-monospace,"Cascadia Mono",Consolas,Menlo,monospace}
+.tabs{display:flex;gap:8px;margin:4px 0 14px}
+.tabs button{flex:1;border:2px solid var(--blau);background:transparent;color:var(--blau);
+  font-weight:700;padding:9px 10px;border-radius:10px;font-size:.98rem;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--blau);color:#fff}
+.karte{background:var(--karte);border-radius:12px;padding:12px 14px;margin-bottom:14px;
+  border-left:5px solid var(--blau)}
+.karte.orange{border-left-color:var(--orange)}
+.karte h2{margin:0 0 6px;font-size:1.05rem}
+.klein{font-size:.86rem;color:var(--grau)}
+/* Variablen */
+#variablen{display:flex;flex-direction:column;gap:14px;min-height:60px}
+.var{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.var .vname{font-family:ui-monospace,Consolas,monospace;font-weight:700;color:var(--blau);
+  min-width:6.5em;padding-top:9px}
+.var .art{display:block;font-family:system-ui,sans-serif;font-weight:600;font-size:.7rem;
+  color:var(--grau);letter-spacing:.06em;text-transform:uppercase}
+.reihe{display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap}
+.klammer{font:700 1.8rem/1.2 ui-monospace,Consolas,monospace;color:var(--blau);padding-top:1px}
+.fach{display:flex;flex-direction:column;align-items:center;gap:2px;animation:rein .35s ease}
+.fach .box{min-width:3.4em;padding:7px 9px;border:2px solid var(--blau);border-radius:9px;
+  background:var(--fach);font:700 .95rem ui-monospace,Consolas,monospace;text-align:center;
+  white-space:nowrap}
+.fach .idx{font-size:.75rem;color:var(--grau)}
+.fach.neu .box{border-color:var(--orange);background:var(--zart)}
+.fach.neu .idx{color:var(--orange);font-weight:700}
+.fach.verschoben .idx{color:var(--orange);font-weight:700}
+.fach.verschoben .box{background:var(--hellblau)}
+.fach.weg{opacity:.5}
+.fach.weg .box{border-style:dashed;text-decoration:line-through;animation:raus 1.6s ease forwards}
+.fach.weg .idx{visibility:hidden}
+.leer{font:italic .9rem system-ui;color:var(--grau);padding-top:10px}
+.einzel .box{border-color:var(--grau)}
+.einzel.neu .box{border-color:var(--orange);background:var(--zart)}
+@keyframes rein{from{transform:translateY(-6px);opacity:.2}to{transform:none;opacity:1}}
+@keyframes raus{0%{opacity:1}100%{opacity:.25}}
+#erklaerung{min-height:1.4em;margin-top:10px;font-size:.92rem;color:var(--orange);font-weight:600}
+/* Eingabe */
+.eingabe{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--rand)}
+.eingabe .prompt{font:700 1rem ui-monospace,Consolas,monospace;color:var(--grau);padding-top:10px}
+#befehl{flex:1;min-width:0;font-size:1rem;padding:9px 10px;border:2px solid var(--rand);
+  border-radius:9px;background:var(--fach);color:var(--text)}
+#befehl:focus{outline:none;border-color:var(--blau)}
+.eingabe button,.knopf{border:0;background:var(--blau);color:#fff;font-weight:700;padding:9px 14px;
+  border-radius:9px;cursor:pointer;font-size:.95rem}
+.knopf.sekundaer{background:transparent;color:var(--blau);border:2px solid var(--blau)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chips button{border:1px solid var(--rand);background:var(--fach);color:var(--text);
+  font:.82rem ui-monospace,Consolas,monospace;padding:5px 8px;border-radius:7px;cursor:pointer}
+.chips button:hover{border-color:var(--blau)}
+.chips .nr{display:inline-block;min-width:1.5em;margin-right:6px;padding:0 4px;border-radius:5px;
+  background:var(--blau);color:#fff;font:700 .7rem system-ui,sans-serif;text-align:center;line-height:1.5}
+@media (max-width:520px){ .fach .box{min-width:0;padding:6px 7px;font-size:.84rem} .klammer{font-size:1.5rem} }
+.unten{display:flex;justify-content:flex-end;margin-top:6px}
+.leise{border:0;background:none;color:var(--grau);font-size:.8rem;cursor:pointer;padding:4px 2px;text-decoration:underline}
+.karte > #variablen + #erklaerung:empty{margin-top:0}
+#konsole{background:var(--konsole);color:var(--konsoletext);border-radius:10px;padding:10px 12px;
+  font:.88rem/1.5 ui-monospace,Consolas,monospace;max-height:170px;overflow:auto;margin-top:12px;
+  white-space:pre-wrap;word-break:break-word}
+#konsole .ein{color:#9fd3ea}
+#konsole .fehler{color:#ff8a80}
+#konsole .tipp{color:#ffcc80;font-family:system-ui,sans-serif;font-size:.84rem}
+/* Herausforderungen */
+.ziel{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
+.ziel > div{flex:1;min-width:240px}
+.stand{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:8px;font-weight:600}
+.geschafft{background:#e3f1e4;color:#1b5e20;border-radius:9px;padding:8px 12px;margin-top:10px;font-weight:700}
+@media (prefers-color-scheme: dark){.geschafft{background:#1d3a20;color:#bfe6c2}}
+.liste-ziel .box{border-color:var(--gruen)}
+.punkte{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.punkte button{width:2.1em;height:2.1em;border-radius:50%;border:2px solid var(--blau);
+  background:transparent;color:var(--blau);font-weight:700;cursor:pointer}
+.punkte button.aktiv{background:var(--blau);color:#fff}
+.punkte button.ok{border-color:var(--gruen);background:var(--gruen);color:#fff}
+footer{margin-top:20px;font-size:.8rem;color:var(--grau)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header>
+  <h1>Listen-Spielplatz</h1>
+</header>
+<main>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-frei" aria-selected="true">Ausprobieren</button>
+    <button role="tab" id="tab-aufgaben" aria-selected="false">Herausforderungen</button>
+  </div>
+
+  <section id="aufgaben" class="karte orange" hidden>
+    <h2 id="a-titel">Herausforderung</h2>
+    <div class="punkte" id="a-punkte"></div>
+    <p id="a-text" style="margin:10px 0 6px"></p>
+    <div class="ziel">
+      <div>
+        <div class="klein">So soll <code>helfer</code> am Ende aussehen:</div>
+        <div class="reihe liste-ziel" id="a-ziel" style="margin-top:6px"></div>
+      </div>
+    </div>
+    <div class="stand">
+      <span>Befehle: <span id="a-zahl">0</span></span>
+      <span class="klein">Bestwert: <span id="a-best"></span></span>
+      <button class="knopf sekundaer" id="a-neu">Von vorn</button>
+      <button class="knopf sekundaer" id="a-tipp">Tipp</button>
+    </div>
+    <div id="a-tipptext" class="klein" hidden style="margin-top:8px"></div>
+    <div id="a-ok" class="geschafft" hidden></div>
+  </section>
+
+  <section class="karte">
+    <div id="variablen"></div>
+    <div id="erklaerung" aria-live="polite"></div>
+    <form class="eingabe" id="form" autocomplete="off">
+      <span class="prompt">&gt;&gt;&gt;</span>
+      <input id="befehl" spellcheck="false" autocapitalize="off" autocorrect="off"
+             placeholder='helfer.append("Dana")' aria-label="Python-Befehl">
+      <button type="submit">Los</button>
+    </form>
+    <div class="chips" id="chips"></div>
+    <div id="konsole" aria-live="polite"></div>
+    <div class="unten">
+      <button type="button" class="leise" id="reset">helfer zurücksetzen</button>
+    </div>
+  </section>
+
+  <footer>Ein Spielplatz, kein vollständiges Python. Echtes Python hast du auf deinem Rechner.</footer>
+</main>
+
+<script>
+"use strict";
+/* ================================================================
+   Ein kleiner Python-Interpreter für Listen
+   ================================================================ */
+class PyFehler extends Error {
+  constructor(art, text, tipp) { super(art + ": " + text); this.art = art; this.text = text; this.tipp = tipp || ""; }
+}
+let naechsteId = 1;
+const NONE = { none: true };
+function liste(werte) { return { liste: true, items: werte.map(v => ({ v, id: naechsteId++ })) }; }
+function typName(v) {
+  if (v === NONE) return "NoneType";
+  if (v && v.liste) return "list";
+  if (typeof v === "string") return "str";
+  if (typeof v === "boolean") return "bool";
+  if (typeof v === "number") return "int";
+  return "object";
+}
+function repr(v) {
+  if (v === NONE) return "None";
+  if (v === true) return "True";
+  if (v === false) return "False";
+  if (typeof v === "number") return String(v);
+  if (typeof v === "string") {
+    const q = v.includes("'") && !v.includes('"') ? '"' : "'";
+    return q + v.replace(/\\/g, "\\\\") + q;
+  }
+  if (v && v.liste) return "[" + v.items.map(i => repr(i.v)).join(", ") + "]";
+  return String(v);
+}
+function str(v) { return typeof v === "string" ? v : repr(v); }
+function gleich(a, b) {
+  if (a && a.liste && b && b.liste) {
+    return a.items.length === b.items.length && a.items.every((x, i) => gleich(x.v, b.items[i].v));
+  }
+  return a === b;
+}
+
+/* ---------- Tokenizer ---------- */
+function tokens(text) {
+  const t = [];
+  let i = 0;
+  while (i < text.length) {
+    const c = text[i];
+    if (c === " " || c === "\t") { i++; continue; }
+    if (c === "#") break;
+    if (/[0-9]/.test(c)) {
+      let j = i; while (j < text.length && /[0-9]/.test(text[j])) j++;
+      t.push({ k: "zahl", v: parseInt(text.slice(i, j), 10) }); i = j; continue;
+    }
+    if (/[A-Za-z_äöüÄÖÜß]/.test(c)) {
+      let j = i; while (j < text.length && /[A-Za-z0-9_äöüÄÖÜß]/.test(text[j])) j++;
+      t.push({ k: "name", v: text.slice(i, j) }); i = j; continue;
+    }
+    if (c === '"' || c === "'") {
+      let j = i + 1, s = "";
+      while (j < text.length && text[j] !== c) { s += text[j]; j++; }
+      if (j >= text.length) throw new PyFehler("SyntaxError", "unterminated string literal",
+        "Der Text hat kein schließendes Anführungszeichen.");
+      t.push({ k: "text", v: s }); i = j + 1; continue;
+    }
+    const zwei = text.slice(i, i + 2);
+    if (["==", "!=", "<=", ">="].includes(zwei)) { t.push({ k: "op", v: zwei }); i += 2; continue; }
+    if ("()[],.=<>+-:*".includes(c)) { t.push({ k: "op", v: c }); i++; continue; }
+    throw new PyFehler("SyntaxError", "invalid character '" + c + "'", "Dieses Zeichen kennt Python hier nicht.");
+  }
+  t.push({ k: "ende" });
+  return t;
+}
+
+/* ---------- Parser (baut einen Baum) ---------- */
+function parse(text) {
+  const t = tokens(text);
+  let p = 0;
+  const sieh = () => t[p];
+  const ist = (k, v) => t[p].k === k && (v === undefined || t[p].v === v);
+  const nimm = (k, v) => {
+    if (!ist(k, v)) throw new PyFehler("SyntaxError", "invalid syntax",
+      v ? "Hier fehlt " + v + " — oder es steht etwas zu viel da." : "Das versteht Python so nicht.");
+    return t[p++];
+  };
+  function anweisung() {
+    if (ist("name", "for")) {
+      p++; const n = nimm("name").v; nimm("name", "in"); const quelle = ausdruck(); nimm("op", ":");
+      const rumpf = anweisung();
+      return { art: "for", n, quelle, rumpf };
+    }
+    // Zuweisung? (= auf oberster Ebene)
+    let tiefe = 0, gleichPos = -1;
+    for (let i = p; i < t.length; i++) {
+      const x = t[i];
+      if (x.k === "op" && "([".includes(x.v)) tiefe++;
+      if (x.k === "op" && ")]".includes(x.v)) tiefe--;
+      if (tiefe === 0 && x.k === "op" && x.v === "=") { gleichPos = i; break; }
+    }
+    if (gleichPos > 0) {
+      const ziel = postfix();
+      if (p !== gleichPos) throw new PyFehler("SyntaxError", "invalid syntax", "Links vom = darf nur ein Name stehen.");
+      if (!(ziel.art === "name" || ziel.art === "index"))
+        throw new PyFehler("SyntaxError", "cannot assign to expression here", "Links vom = darf nur ein Name stehen.");
+      nimm("op", "=");
+      const wert = ausdruck();
+      return { art: "zuweisung", ziel, wert };
+    }
+    return { art: "ausdruck", a: ausdruck() };
+  }
+  function ausdruck() {
+    let a = vergleich();
+    while (ist("name", "and") || ist("name", "or")) { const op = t[p++].v; a = { art: "bool", op, a, b: vergleich() }; }
+    return a;
+  }
+  function vergleich() {
+    let a = summe();
+    if (ist("op") && ["==", "!=", "<", ">", "<=", ">="].includes(sieh().v)) { const op = t[p++].v; return { art: "vgl", op, a, b: summe() }; }
+    if (ist("name", "in")) { p++; return { art: "in", a, b: summe() }; }
+    if (ist("name", "not") && t[p + 1].k === "name" && t[p + 1].v === "in") { p += 2; return { art: "notin", a, b: summe() }; }
+    return a;
+  }
+  function summe() {
+    let a = einzel();
+    while (ist("op", "+") || ist("op", "-") || ist("op", "*")) { const op = t[p++].v; a = { art: "rechnen", op, a, b: einzel() }; }
+    return a;
+  }
+  function einzel() {
+    if (ist("op", "-")) { p++; return { art: "minus", a: einzel() }; }
+    if (ist("name", "not")) { p++; return { art: "not", a: einzel() }; }
+    return postfix();
+  }
+  function argumente() {
+    const args = [];
+    nimm("op", "(");
+    if (!ist("op", ")")) { args.push(ausdruck()); while (ist("op", ",")) { p++; args.push(ausdruck()); } }
+    nimm("op", ")");
+    return args;
+  }
+  function postfix() {
+    let a = atom();
+    for (;;) {
+      if (ist("op", "[")) { p++; const i = ausdruck(); nimm("op", "]"); a = { art: "index", a, i }; continue; }
+      if (ist("op", ".")) { p++; const m = nimm("name").v; a = { art: "methode", a, m, args: argumente() }; continue; }
+      if (ist("op", "(")) { a = { art: "aufruf", f: a, args: argumente() }; continue; }
+      return a;
+    }
+  }
+  function atom() {
+    const x = sieh();
+    if (x.k === "zahl") { p++; return { art: "wert", v: x.v }; }
+    if (x.k === "text") { p++; return { art: "wert", v: x.v }; }
+    if (x.k === "name") {
+      p++;
+      if (x.v === "True") return { art: "wert", v: true };
+      if (x.v === "False") return { art: "wert", v: false };
+      if (x.v === "None") return { art: "wert", v: NONE };
+      return { art: "name", n: x.v };
+    }
+    if (ist("op", "[")) {
+      p++; const el = [];
+      if (!ist("op", "]")) { el.push(ausdruck()); while (ist("op", ",")) { p++; if (ist("op", "]")) break; el.push(ausdruck()); } }
+      nimm("op", "]");
+      return { art: "listeLit", el };
+    }
+    if (ist("op", "(")) { p++; const a = ausdruck(); nimm("op", ")"); return a; }
+    throw new PyFehler("SyntaxError", "invalid syntax", "Hier erwartet Python einen Wert, einen Namen oder eine Liste.");
+  }
+  const s = anweisung();
+  if (!ist("ende")) throw new PyFehler("SyntaxError", "invalid syntax", "Nach dem Befehl steht noch etwas — fehlt ein Komma oder eine Klammer?");
+  return s;
+}
+
+/* ---------- Auswerten ---------- */
+const vars = new Map();       // Name -> Wert
+let ausgabe = [];             // Zeilen von print
+let ereignis = null;          // was passiert ist (für das Bild und die Erklärung)
+
+function holeIndex(l, i, laenge) {
+  if (typeof i !== "number") throw new PyFehler("TypeError", "list indices must be integers, not " + typName(i),
+    "Der Index ist eine Zahl: helfer[0], helfer[1] …");
+  const j = i < 0 ? laenge + i : i;
+  if (j < 0 || j >= laenge) throw new PyFehler("IndexError", (l ? "list" : "string") + " index out of range",
+    "Die Liste hat " + laenge + " Elemente — die Indizes gehen von 0 bis " + (laenge - 1) + ".");
+  return j;
+}
+function brauchtListe(v, m) {
+  if (!(v && v.liste)) throw new PyFehler("AttributeError", "'" + typName(v) + "' object has no attribute '" + m + "'",
+    v === NONE ? "Hier steht None statt einer Liste. Hast du das Ergebnis von append zugewiesen? append verändert die Liste selbst und gibt nichts zurück."
+               : "Das ist keine Liste, sondern ein " + typName(v) + ".");
+}
+function argZahl(m, args, n) {
+  if (args.length !== n) {
+    if (n === 1) throw new PyFehler("TypeError", "list." + m + "() takes exactly one argument (" + args.length + " given)",
+      m + " braucht genau einen Wert in den Klammern.");
+    throw new PyFehler("TypeError", m + " expected " + n + " arguments, got " + args.length,
+      m === "insert" ? "insert braucht zwei Werte: die Stelle und den Wert — insert(1, \"Zoe\")." : "");
+  }
+}
+function auswerten(k) {
+  switch (k.art) {
+    case "wert": return k.v;
+    case "name": {
+      if (k.n === "print" || k.n === "len" || k.n === "str" || k.n === "int") return { funktion: k.n };
+      if (!vars.has(k.n)) throw new PyFehler("NameError", "name '" + k.n + "' is not defined",
+        "Eine Variable gibt es erst, wenn ihr mit = etwas zugewiesen wurde. Oder ist es ein Text? Dann gehören Anführungszeichen drum.");
+      return vars.get(k.n);
+    }
+    case "listeLit": return liste(k.el.map(auswerten));
+    case "index": {
+      const a = auswerten(k.a), i = auswerten(k.i);
+      if (a && a.liste) return a.items[holeIndex(true, i, a.items.length)].v;
+      if (typeof a === "string") return a[holeIndex(false, i, a.length)];
+      throw new PyFehler("TypeError", "'" + typName(a) + "' object is not subscriptable", "Mit [ ] holt man nur aus Listen oder Texten etwas heraus.");
+    }
+    case "minus": { const a = auswerten(k.a); if (typeof a !== "number") throw new PyFehler("TypeError", "bad operand type for unary -: '" + typName(a) + "'"); return -a; }
+    case "not": return !wahr(auswerten(k.a));
+    case "bool": { const a = auswerten(k.a); if (k.op === "and") return wahr(a) ? auswerten(k.b) : a; return wahr(a) ? a : auswerten(k.b); }
+    case "rechnen": {
+      const a = auswerten(k.a), b = auswerten(k.b);
+      if (k.op === "+") {
+        if (typeof a === "number" && typeof b === "number") return a + b;
+        if (typeof a === "string" && typeof b === "string") return a + b;
+        if (a && a.liste && b && b.liste) return liste(a.items.map(x => x.v).concat(b.items.map(x => x.v)));
+        throw new PyFehler("TypeError", typeof a === "string" ? 'can only concatenate str (not "' + typName(b) + '") to str'
+          : "unsupported operand type(s) for +: '" + typName(a) + "' and '" + typName(b) + "'",
+          "Text und Zahl lassen sich nicht einfach mit + verbinden.");
+      }
+      if (k.op === "-") { if (typeof a === "number" && typeof b === "number") return a - b;
+        throw new PyFehler("TypeError", "unsupported operand type(s) for -: '" + typName(a) + "' and '" + typName(b) + "'"); }
+      if (k.op === "*") { if (typeof a === "number" && typeof b === "number") return a * b;
+        if (typeof a === "string" && typeof b === "number") return a.repeat(Math.max(0, b));
+        throw new PyFehler("TypeError", "unsupported operand type(s) for *"); }
+      break;
+    }
+    case "vgl": {
+      const a = auswerten(k.a), b = auswerten(k.b);
+      if (k.op === "==") return gleich(a, b);
+      if (k.op === "!=") return !gleich(a, b);
+      if (typeof a !== typeof b || (typeof a !== "number" && typeof a !== "string"))
+        throw new PyFehler("TypeError", "'" + k.op + "' not supported between instances of '" + typName(a) + "' and '" + typName(b) + "'");
+      return k.op === "<" ? a < b : k.op === ">" ? a > b : k.op === "<=" ? a <= b : a >= b;
+    }
+    case "in": case "notin": {
+      const a = auswerten(k.a), b = auswerten(k.b);
+      let r;
+      if (b && b.liste) r = b.items.some(x => gleich(x.v, a));
+      else if (typeof b === "string") {
+        if (typeof a !== "string") throw new PyFehler("TypeError", "'in <string>' requires string as left operand, not " + typName(a));
+        r = b.includes(a);
+      } else throw new PyFehler("TypeError", "argument of type '" + typName(b) + "' is not iterable",
+        b === NONE ? "Hier steht None statt einer Liste." : "in prüft nur in Listen oder Texten.");
+      ereignis = { art: "in", gesucht: a, ergebnis: k.art === "in" ? r : !r };
+      return k.art === "in" ? r : !r;
+    }
+    case "aufruf": {
+      const f = auswerten(k.f);
+      if (!f || !f.funktion) throw new PyFehler("TypeError", "'" + typName(f) + "' object is not callable");
+      const args = k.args.map(auswerten);
+      if (f.funktion === "print") { ausgabe.push(args.map(str).join(" ")); return NONE; }
+      if (f.funktion === "len") {
+        if (args.length !== 1) throw new PyFehler("TypeError", "len() takes exactly one argument (" + args.length + " given)");
+        const a = args[0];
+        if (a && a.liste) return a.items.length;
+        if (typeof a === "string") return a.length;
+        throw new PyFehler("TypeError", "object of type '" + typName(a) + "' has no len()",
+          a === NONE ? "Hier steht None statt einer Liste. Hast du das Ergebnis von append zugewiesen?" : "");
+      }
+      if (f.funktion === "str") return str(args[0]);
+      if (f.funktion === "int") { const n = parseInt(args[0], 10); if (isNaN(n)) throw new PyFehler("ValueError", "invalid literal for int() with base 10: " + repr(args[0])); return n; }
+      break;
+    }
+    case "methode": {
+      const ziel = auswerten(k.a);
+      const args = k.args.map(auswerten);
+      const m = k.m;
+      if (typeof ziel === "string") {
+        if (m === "upper") return ziel.toUpperCase();
+        if (m === "lower") return ziel.toLowerCase();
+        if (m === "strip") return ziel.trim();
+        throw new PyFehler("AttributeError", "'str' object has no attribute '" + m + "'",
+          ["append", "insert", "remove", "clear", "count", "index", "pop"].includes(m) ? "Das ist ein Text, keine Liste." : "");
+      }
+      brauchtListe(ziel, m);
+      const it = ziel.items;
+      const name = k.a.art === "name" ? k.a.n : "die Liste";
+      switch (m) {
+        case "append": { argZahl(m, args, 1); it.push({ v: args[0], id: naechsteId++ });
+          ereignis = { art: "append", liste: name, wert: args[0], stelle: it.length - 1 }; return NONE; }
+        case "insert": { argZahl(m, args, 2);
+          let n = args[0];
+          if (typeof n !== "number") throw new PyFehler("TypeError", "'" + typName(n) + "' object cannot be interpreted as an integer",
+            "Zuerst kommt die Stelle (eine Zahl), dann der Wert: insert(1, \"Zoe\").");
+          if (n < 0) n = Math.max(0, it.length + n); if (n > it.length) n = it.length;
+          it.splice(n, 0, { v: args[1], id: naechsteId++ });
+          ereignis = { art: "insert", liste: name, wert: args[1], stelle: n, nachrutschen: it.length - n - 1 }; return NONE; }
+        case "remove": { argZahl(m, args, 1);
+          const i = it.findIndex(x => gleich(x.v, args[0]));
+          if (i < 0) throw new PyFehler("ValueError", "list.remove(x): x not in list",
+            str(args[0]) + " steht nicht in der Liste. Prüfe vorher mit in, ob der Wert drin ist.");
+          it.splice(i, 1);
+          ereignis = { art: "remove", liste: name, wert: args[0], stelle: i, vorrutschen: it.length - i }; return NONE; }
+        case "count": { argZahl(m, args, 1); const n = it.filter(x => gleich(x.v, args[0])).length;
+          ereignis = { art: "count", wert: args[0], n }; return n; }
+        case "index": { argZahl(m, args, 1); const i = it.findIndex(x => gleich(x.v, args[0]));
+          if (i < 0) throw new PyFehler("ValueError", repr(args[0]) + " is not in list", "Den Wert gibt es in der Liste nicht.");
+          return i; }
+        case "clear": { argZahl(m, args, 0); const n = it.length; it.length = 0;
+          ereignis = { art: "clear", liste: name, n }; return NONE; }
+        case "pop": {
+          if (args.length > 1) throw new PyFehler("TypeError", "pop expected at most 1 argument, got " + args.length);
+          if (!it.length) throw new PyFehler("IndexError", "pop from empty list", "Die Liste ist leer.");
+          const i = args.length ? holeIndex(true, args[0], it.length) : it.length - 1;
+          const v = it.splice(i, 1)[0].v; ereignis = { art: "remove", liste: name, wert: v, stelle: i, vorrutschen: it.length - i }; return v; }
+        case "sort": { argZahl(m, args, 0); it.sort((a, b) => (a.v < b.v ? -1 : a.v > b.v ? 1 : 0)); return NONE; }
+        case "reverse": { argZahl(m, args, 0); it.reverse(); return NONE; }
+        default: throw new PyFehler("AttributeError", "'list' object has no attribute '" + m + "'",
+          "Diese Methode gibt es für Listen nicht. Schau aufs Infoblatt.");
+      }
+    }
+  }
+  throw new PyFehler("SyntaxError", "invalid syntax");
+}
+function wahr(v) {
+  if (v === NONE) return false;
+  if (v && v.liste) return v.items.length > 0;
+  return !!v;
+}
+function ausfuehren(s) {
+  if (s.art === "for") {
+    const q = auswerten(s.quelle);
+    let werte;
+    if (q && q.liste) werte = q.items.map(x => x.v);
+    else if (typeof q === "string") werte = q.split("");
+    else throw new PyFehler("TypeError", "'" + typName(q) + "' object is not iterable", q === NONE ? "Hier steht None statt einer Liste." : "");
+    let n = 0;
+    for (const w of werte) { vars.set(s.n, w); ausfuehren(s.rumpf); if (++n > 200) break; }
+    ereignis = { art: "for", n: werte.length };
+    return NONE;
+  }
+  if (s.art === "zuweisung") {
+    const wert = auswerten(s.wert);
+    if (s.ziel.art === "name") {
+      const alt = vars.get(s.ziel.n);
+      vars.set(s.ziel.n, wert);
+      ereignis = { art: "zuweisung", name: s.ziel.n, alt, wert };
+    } else {
+      const l = auswerten(s.ziel.a), i = auswerten(s.ziel.i);
+      brauchtListe(l, "__setitem__");
+      const j = holeIndex(true, i, l.items.length);
+      l.items[j] = { v: wert, id: naechsteId++ };
+      ereignis = { art: "setitem", stelle: j, wert };
+    }
+    return NONE;
+  }
+  return auswerten(s.a);
+}
+
+/* ================================================================
+   Oberfläche
+   ================================================================ */
+const $ = id => document.getElementById(id);
+let vorher = new Map();       // Name -> Map(id -> index) bzw. repr
+
+function schnappschuss() {
+  const m = new Map();
+  for (const [n, v] of vars) m.set(n, v && v.liste ? { liste: true, pos: new Map(v.items.map((x, i) => [x.id, i])), werte: new Map(v.items.map(x => [x.id, x.v])) } : { r: repr(v) });
+  return m;
+}
+function fachEl(text, index, klasse) {
+  const d = document.createElement("div");
+  d.className = "fach " + (klasse || "");
+  const b = document.createElement("div"); b.className = "box"; b.textContent = text;
+  const i = document.createElement("div"); i.className = "idx"; i.textContent = index;
+  d.append(b, i);
+  return d;
+}
+function zeichnen(markieren) {
+  const wurzel = $("variablen");
+  wurzel.innerHTML = "";
+  const namen = [...vars.keys()].filter(n => !n.startsWith("_"));
+  if (!namen.length) { wurzel.innerHTML = '<div class="leer">Noch keine Variablen.</div>'; }
+  for (const n of namen) {
+    const v = vars.get(n);
+    const zeile = document.createElement("div"); zeile.className = "var";
+    const kopf = document.createElement("div"); kopf.className = "vname";
+    kopf.innerHTML = '<span class="art">' + (v && v.liste ? "Liste" : "Variable") + "</span>" + n;
+    zeile.append(kopf);
+    const alt = markieren ? vorher.get(n) : null;
+    if (v && v.liste) {
+      const r = document.createElement("div"); r.className = "reihe";
+      const k1 = document.createElement("div"); k1.className = "klammer"; k1.textContent = "[";
+      r.append(k1);
+      const faecher = v.items.map((x, i) => {
+        let kl = "";
+        if (alt && alt.liste) {
+          if (!alt.pos.has(x.id)) kl = "neu";
+          else if (alt.pos.get(x.id) !== i) kl = "verschoben";
+        } else if (alt && !alt.liste) kl = "neu";
+        return fachEl(repr(x.v), i, kl);
+      });
+      if (alt && alt.liste) {
+        // Entfernte Elemente an ihrer alten Stelle durchgestrichen zeigen
+        const weg = [...alt.werte].filter(([id]) => !v.items.some(x => x.id === id))
+          .map(([id, w]) => [alt.pos.get(id), w]).sort((a, b) => a[0] - b[0]);
+        for (const [stelle, w] of weg) faecher.splice(Math.min(stelle, faecher.length), 0, fachEl(repr(w), "", "weg"));
+      }
+      for (const f of faecher) r.append(f);
+      if (!v.items.length && !(alt && alt.liste && alt.werte.size)) {
+        const l = document.createElement("div"); l.className = "leer"; l.textContent = "leer"; r.append(l);
+      }
+      const k2 = document.createElement("div"); k2.className = "klammer"; k2.textContent = "]";
+      r.append(k2);
+      zeile.append(r);
+    } else {
+      const neu = alt && alt.r !== repr(v);
+      const f = fachEl(repr(v), "", "einzel" + (neu || (markieren && !alt) ? " neu" : ""));
+      zeile.append(f);
+    }
+    wurzel.append(zeile);
+  }
+}
+function erklaeren(e) {
+  if (!e) return "";
+  const s = v => str(v);
+  switch (e.art) {
+    case "append": return s(e.wert) + " kommt hinten dran, an Stelle " + e.stelle + ".";
+    case "insert": return s(e.wert) + " steht jetzt an Stelle " + e.stelle + "." +
+      (e.nachrutschen ? " " + (e.nachrutschen === 1 ? "Ein Element rückt" : e.nachrutschen + " Elemente rücken") + " eine Stelle nach hinten — ihr Index wird um 1 größer." : "");
+    case "remove": return s(e.wert) + " ist raus." +
+      (e.vorrutschen ? " " + (e.vorrutschen === 1 ? "Ein Element rückt" : e.vorrutschen + " Elemente rücken") + " eine Stelle vor — ihr Index wird um 1 kleiner." : "");
+    case "clear": return "Die Liste ist leer. Es gibt sie aber noch — nur ohne Elemente.";
+    case "count": return s(e.wert) + " steht " + e.n + "-mal in der Liste.";
+    case "in": return e.ergebnis ? "Ja, " + s(e.gesucht) + " ist drin." : "Nein, " + s(e.gesucht) + " ist nicht drin.";
+    case "zuweisung":
+      if (e.wert === NONE) return "Achtung: In " + e.name + " steht jetzt None — nichts. append, insert, remove und clear geben nichts zurück.";
+      if (e.wert && e.wert.liste) return e.name + " ist jetzt eine Liste mit " + e.wert.items.length + " Element" + (e.wert.items.length === 1 ? "" : "en") + ".";
+      if (e.alt !== undefined && !(e.alt && e.alt.liste)) return "Der alte Wert von " + e.name + " ist überschrieben.";
+      if (e.alt && e.alt.liste) return e.name + " ist jetzt keine Liste mehr, sondern ein " + typName(e.wert) + ".";
+      return "";
+    case "setitem": return "Stelle " + e.stelle + " hat jetzt den Wert " + s(e.wert) + ".";
+    case "for": return "Die Schleife lief " + e.n + "-mal — einmal für jedes Element.";
+  }
+  return "";
+}
+function konsole(zeilen) {
+  const k = $("konsole");
+  for (const [klasse, text] of zeilen) {
+    const d = document.createElement("div"); d.className = klasse; d.textContent = text; k.append(d);
+  }
+  k.scrollTop = k.scrollHeight;
+}
+function normalisieren(t) {
+  return t.replace(/[„“”«»]/g, '"').replace(/[‚‘’`´]/g, "'").replace(/ /g, " ").trim();
+}
+
+let verlauf = [], verlaufPos = 0;
+function befehl(text) {
+  text = normalisieren(text);
+  if (!text) return;
+  verlauf.push(text); verlaufPos = verlauf.length;
+  vorher = schnappschuss();
+  ausgabe = []; ereignis = null;
+  const zeilen = [["ein", ">>> " + text]];
+  let ok = true;
+  try {
+    const baum = parse(text);
+    const erg = ausfuehren(baum);
+    for (const a of ausgabe) zeilen.push(["", a]);
+    if (baum.art === "ausdruck" && erg !== NONE && !(erg && erg.funktion)) zeilen.push(["", repr(erg)]);
+    if (erg && erg.funktion) zeilen.push(["", "<built-in function " + erg.funktion + ">"]);
+  } catch (e) {
+    ok = false;
+    if (e instanceof PyFehler) {
+      zeilen.push(["fehler", e.art + ": " + e.text]);
+      if (e.tipp) zeilen.push(["tipp", "→ " + e.tipp]);
+    } else { zeilen.push(["fehler", "Fehler: " + e.message]); }
+  }
+  konsole(zeilen);
+  zeichnen(true);
+  $("erklaerung").textContent = ok ? erklaeren(ereignis) : "";
+  if (aufgabenModus) pruefeAufgabe(ok);
+}
+
+function startwerte(werte) {
+  vars.clear();
+  vars.set("helfer", liste(werte));
+  vorher = schnappschuss();
+  zeichnen(false);
+  $("erklaerung").textContent = "";
+}
+
+/* ---------- Herausforderungen ---------- */
+const AUFGABEN = [
+  { titel: "Hinten anhängen", text: "Dana meldet sich als Helferin. Sie soll ans Ende.",
+    start: ["Anna", "Ben", "Cem"], ziel: ["Anna", "Ben", "Cem", "Dana"], best: 1,
+    tipp: "Karte 3 auf dem Infoblatt." },
+  { titel: "Ganz nach vorn", text: "Zoe übernimmt den ersten Posten an der Strecke.",
+    start: ["Anna", "Ben", "Cem"], ziel: ["Zoe", "Anna", "Ben", "Cem"], best: 1,
+    tipp: "insert(stelle, wert) — welche Stelle hat das erste Element?" },
+  { titel: "In die Mitte", text: "Zoe soll zwischen Ben und Cem stehen.",
+    start: ["Anna", "Ben", "Cem"], ziel: ["Anna", "Ben", "Zoe", "Cem"], best: 1,
+    tipp: "Zähl die Stellen ab 0. Wo soll Zoe am Ende stehen?" },
+  { titel: "Einer zu viel", text: "Ben steht zweimal drin. Nimm einen heraus — aber genau so, dass das Ziel herauskommt.",
+    start: ["Anna", "Ben", "Cem", "Ben"], ziel: ["Anna", "Cem", "Ben"], best: 1,
+    tipp: "remove nimmt immer das erste Element mit diesem Wert." },
+  { titel: "Petra, Petra, Petra", text: "Petra ist dreimal angemeldet. Am Ende sollen nur noch Sofia und Jonas übrig sein.",
+    start: ["Petra", "Sofia", "Petra", "Jonas", "Petra"], ziel: ["Sofia", "Jonas"], best: 3,
+    tipp: "Wie oft steht Petra drin? Probier helfer.count(\"Petra\")." },
+  { titel: "Umsortieren", text: "Cem steht vorn, soll aber ans Ende.",
+    start: ["Cem", "Anna", "Ben"], ziel: ["Anna", "Ben", "Cem"], best: 2,
+    tipp: "Erst raus, dann hinten wieder rein." },
+  { titel: "Tauschen", text: "Ben hat abgesagt, Emil übernimmt genau seinen Platz.",
+    start: ["Anna", "Ben", "Cem"], ziel: ["Anna", "Emil", "Cem"], best: 1,
+    tipp: "Mit dem Index kannst du einem Platz einen neuen Wert geben: helfer[?] = …" },
+  { titel: "Alles weg", text: "Der Lauf ist vorbei. Die Helferliste soll leer werden — die Liste selbst bleibt.",
+    start: ["Anna", "Ben", "Cem", "Dana", "Emil"], ziel: [], best: 1,
+    tipp: "Karte 10 auf dem Infoblatt." },
+];
+let aufgabenModus = false, aktuell = 0, zaehler = 0, geloest = new Set();
+try { geloest = new Set(JSON.parse(localStorage.getItem("listen-geloest") || "[]")); } catch (e) {}
+function speichern() { try { localStorage.setItem("listen-geloest", JSON.stringify([...geloest])); } catch (e) {} }
+
+function zeigeAufgabe(i) {
+  aktuell = i; zaehler = 0;
+  const a = AUFGABEN[i];
+  $("a-titel").textContent = (i + 1) + " · " + a.titel;
+  $("a-text").textContent = a.text;
+  $("a-best").textContent = a.best;
+  $("a-zahl").textContent = 0;
+  $("a-ok").hidden = true; $("a-tipptext").hidden = true; $("a-tipptext").textContent = a.tipp;
+  const z = $("a-ziel"); z.innerHTML = "";
+  const k1 = document.createElement("div"); k1.className = "klammer"; k1.textContent = "["; z.append(k1);
+  a.ziel.forEach((w, j) => z.append(fachEl(repr(w), j, "")));
+  if (!a.ziel.length) { const l = document.createElement("div"); l.className = "leer"; l.textContent = "leer"; z.append(l); }
+  const k2 = document.createElement("div"); k2.className = "klammer"; k2.textContent = "]"; z.append(k2);
+  startwerte(a.start);
+  $("konsole").innerHTML = "";
+  konsole([["tipp", "Start: helfer = " + repr(vars.get("helfer"))]]);
+  punkte();
+}
+function punkte() {
+  const p = $("a-punkte"); p.innerHTML = "";
+  AUFGABEN.forEach((a, i) => {
+    const b = document.createElement("button");
+    b.textContent = i + 1; b.title = a.titel;
+    b.className = (i === aktuell ? "aktiv " : "") + (geloest.has(i) ? "ok" : "");
+    b.onclick = () => zeigeAufgabe(i);
+    p.append(b);
+  });
+}
+function pruefeAufgabe(ok) {
+  zaehler++;
+  $("a-zahl").textContent = zaehler;
+  const a = AUFGABEN[aktuell];
+  const h = vars.get("helfer");
+  if (h && h.liste && gleich(h, liste(a.ziel))) {
+    geloest.add(aktuell); speichern(); punkte();
+    const o = $("a-ok"); o.hidden = false;
+    o.textContent = "Geschafft mit " + zaehler + (zaehler === 1 ? " Befehl" : " Befehlen") +
+      (zaehler <= a.best ? " — Bestwert!" : ". Geht es mit " + a.best + "?") +
+      (aktuell < AUFGABEN.length - 1 ? " Weiter mit der nächsten Herausforderung." : " Das war die letzte.");
+  }
+}
+
+/* ---------- Ereignisse ---------- */
+/* Alle Befehle vom Infoblatt, in seiner Reihenfolge; die Zahl ist die Karte auf dem Blatt. */
+const BEISPIELE = [[1, 'helfer = []'], [1, 'helfer = ["Anna", "Ben", "Cem"]'], [2, 'helfer[0]'],
+  [3, 'helfer.append("Dana")'], [4, '"Ben" in helfer'], [5, 'print(helfer)'],
+  [5, 'for person in helfer: print(person)'], [6, 'len(helfer)'], [7, 'helfer.insert(1, "Zoe")'],
+  [8, 'helfer.remove("Ben")'], [9, 'helfer.count("Zoe")'], [10, 'helfer.clear()']];
+for (const [nr, b] of BEISPIELE) {
+  const k = document.createElement("button"); k.type = "button";
+  const n = document.createElement("span"); n.className = "nr"; n.textContent = nr;
+  k.append(n, b); k.title = "Infoblatt, Karte " + nr;
+  k.onclick = () => { const e = $("befehl"); e.value = b; e.focus(); };
+  $("chips").append(k);
+}
+$("form").addEventListener("submit", ev => { ev.preventDefault(); const e = $("befehl"); befehl(e.value); e.value = ""; e.focus(); });
+$("befehl").addEventListener("keydown", ev => {
+  if (ev.key === "ArrowUp" && verlauf.length) { verlaufPos = Math.max(0, verlaufPos - 1); ev.target.value = verlauf[verlaufPos]; ev.preventDefault(); }
+  if (ev.key === "ArrowDown" && verlauf.length) { verlaufPos = Math.min(verlauf.length, verlaufPos + 1); ev.target.value = verlauf[verlaufPos] || ""; ev.preventDefault(); }
+});
+$("reset").onclick = () => {
+  if (aufgabenModus) { zeigeAufgabe(aktuell); return; }
+  startwerte(["Anna", "Ben", "Cem"]);
+  konsole([["tipp", "helfer = ['Anna', 'Ben', 'Cem']"]]);
+};
+$("a-neu").onclick = () => zeigeAufgabe(aktuell);
+$("a-tipp").onclick = () => { $("a-tipptext").hidden = !$("a-tipptext").hidden; };
+function modus(aufgaben) {
+  aufgabenModus = aufgaben;
+  $("tab-frei").setAttribute("aria-selected", String(!aufgaben));
+  $("tab-aufgaben").setAttribute("aria-selected", String(aufgaben));
+  $("aufgaben").hidden = !aufgaben;
+  $("chips").hidden = aufgaben;
+  $("reset").hidden = aufgaben;
+  if (aufgaben) zeigeAufgabe(aktuell);
+  else { $("konsole").innerHTML = ""; startwerte(["Anna", "Ben", "Cem"]);
+    konsole([["tipp", "helfer = ['Anna', 'Ben', 'Cem'] — tippe einen Befehl oder nimm ein Beispiel."]]); }
+}
+$("tab-frei").onclick = () => modus(false);
+$("tab-aufgaben").onclick = () => modus(true);
+modus(false);
+</script>
+</body>
+</html>
