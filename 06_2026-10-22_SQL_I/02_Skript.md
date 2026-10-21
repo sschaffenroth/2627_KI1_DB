@@ -176,16 +176,38 @@ WHERE    titel LIKE D%;
 
 ---
 
-## Für Schnelle
+## Für Schnelle — LIKE genauer
 
 
-**Z1** Alle Leserinnen und Leser aus München als **eine** Spalte mit der Überschrift `name`, zum Beispiel „Anna Bauer“. *Tipp:* `vorname || ' ' || nachname AS name`.
+> `LIKE` vergleicht Text mit einem **Muster**. `%` steht für beliebig viele Zeichen — auch für keins. `_` steht für **genau ein** Zeichen. Wo das `%` steht, entscheidet: `'W%'` am Anfang, `'%er'` am Ende, `'%Python%'` irgendwo. `NOT LIKE` dreht die Bedingung um.
+>
+> **Beispiel:**
+>
+> ```sql
+> SELECT nachname, vorname
+> FROM   autor
+> WHERE  nachname LIKE '%mann';
+> ```
+>
+> 2 Datensätze: Kehlmann und Kleppmann.
 
-**Z2** Titel aller Bücher, in deren Titel „Python“ **irgendwo** vorkommt.
+**Notieren Sie die Befehle:**
 
-**Z3** Inventarnummer und Zustand aller Exemplare, die `abgenutzt` oder `defekt` sind — in **einer** Bedingung mit `IN`.
+**Z1** Titel aller Bücher, in deren Titel „Python“ **irgendwo** vorkommt.
 
-**Z4** Name und Ort des Verlags **O'Reilly**. Achtung, Apostroph: Im Text wird er verdoppelt.
+**Z2** Nachname und Vorname aller Leserinnen und Leser, deren Nachname auf **„er“ endet**, alphabetisch.
+
+**Z3** Nachname und Vorname aller Leserinnen und Leser, deren Nachname **genau vier** Buchstaben hat.
+
+**Z4** Nummer und Ausleihdatum aller Ausleihen **im August 2026** — diesmal mit `LIKE` statt mit `>=` und `<=`.
+
+**Z5** Alle Buchtitel, die aus **einem einzigen Wort** bestehen.
+
+**Z6** Knobelaufgabe: Vorname, Nachname und Ort aller Leserinnen und Leser aus München **oder** Dachau, deren Nachname auf „er“ endet, alphabetisch.
+
+**Noch ein Baustein aus der Schulaufgabe:** Texte aneinanderhängen.
+
+**Z7** Alle Leserinnen und Leser aus München als **eine** Spalte mit der Überschrift `name`, zum Beispiel „Anna Bauer“. *Tipp:* `vorname || ' ' || nachname AS name`.
 
 ---
 
