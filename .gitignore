@@ -2,10 +2,12 @@
 # Diese Datei wird von schueler_repo.py als .gitignore hochgeladen —
 # geändert wird sie hier, nicht im Klon.
 
-# Datenbankdateien. Die Datenbank baut sich jede und jeder selbst aus
-# bibliothek.sql — eine .db-Datei ist ein Binärklotz, der bei jedem
-# Speichern komplett neu im Repository landet.
+# Datenbankdateien. Eigene .db-Dateien gehören nicht hierher — eine
+# .db-Datei ist ein Binärklotz, der bei jedem Speichern komplett neu im
+# Repository landet. Einzige Ausnahme: die fertige Beispieldatenbank.
 *.db
+# Ausnahme: die fertige Beispieldatenbank zum Herunterladen (seit 21.10.2026)
+!00_Beispieldatenbank/bibliothek.db
 *.db-journal
 *.sqlite
 *.sqlite3

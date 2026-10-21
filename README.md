@@ -57,7 +57,7 @@ git switch -c loesungen-nachname
 | Ordner | Inhalt |
 |---|---|
 | `NN_JJJJ-MM-TT_Thema/` | ein Ordner je Unterrichtstermin |
-| `00_Beispieldatenbank/` | `bibliothek.sql` — die Stadtbibliothek, unser Beispiel für das ganze Jahr |
+| `00_Beispieldatenbank/` | `bibliothek.db` (fertig zum Herunterladen) und `bibliothek.sql` — die Stadtbibliothek, unser Beispiel für das ganze Jahr |
 
 In jedem Stundenordner steht eine kurze `README.md`, die die Dateien der Stunde
 auflistet. Wiederkehrende Dateien:
@@ -68,16 +68,20 @@ auflistet. Wiederkehrende Dateien:
 | `04_Loesung_Schueler.md` | die Lösungen — erscheint **eine Woche nach** der Stunde |
 | `05_Uebungen.sql` | SQL-Datei zum Mitarbeiten |
 | `05_SQL_Spickzettel.md` | der Spickzettel, gilt das ganze Jahr (liegt bei Stunde 04) |
-| `05_Inbetriebnahme_DB_Browser.md` | Anleitung zum Einrichten, gilt das ganze Jahr (liegt bei Stunde 02) |
+| `05_Inbetriebnahme_DB_Browser.md` | Anleitung zum Einrichten, gilt das ganze Jahr (liegt bei Stunde 01) |
 
 Verlaufspläne, Folien und die Lehrerfassung der Lösungen liegen **nicht** hier.
 
 ---
 
-## Die Beispieldatenbank aufbauen
+## Die Beispieldatenbank
 
-Sie brauchen den **DB Browser for SQLite** (portabel, kostenlos, ohne
-Administratorrechte — Anleitung im Ordner der Stunde vom 24.09.).
+**Am schnellsten:** `00_Beispieldatenbank/bibliothek.db` anklicken → Download-Symbol rechts
+oben → im DB Browser mit **Datenbank öffnen** öffnen. Wer sie kaputtgespielt hat, lädt sie
+einfach neu herunter.
+
+**Selbst aufbauen** aus dem SQL-Skript — Sie brauchen den **DB Browser for SQLite** (portabel, kostenlos, ohne
+Administratorrechte — Anleitung im Ordner der Stunde vom 17.09.).
 
 1. DB Browser starten → **Neue Datenbank** → als `bibliothek_<IhrNachname>.db`
    in Ihrem eigenen Ordner speichern
