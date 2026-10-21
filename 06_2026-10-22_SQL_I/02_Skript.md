@@ -2,8 +2,6 @@
 
 **Datenbanken · Fachschule für Künstliche Intelligenz · 22.10.2026**
 
-*Lesefassung. Die Vorlage zum Ausfüllen bekommen Sie im Unterricht auf Papier — hier sind die Schreiblinien entfernt.*
-
 ## Die Datenbank
 
 Laden Sie die fertige Datenbank `bibliothek.db` aus dem Klassenrepository herunter: Ordner `00_Beispieldatenbank` → `bibliothek.db` anklicken → Download-Symbol rechts oben. Oder direkt: <https://github.com/sschaffenroth/2627_KI1_DB/raw/main/00_Beispieldatenbank/bibliothek.db>
@@ -215,9 +213,55 @@ WHERE    titel LIKE D%;
 
 **Gestellt:** Do 22.10.2026 · **Fällig:** Do 29.10.2026, zu Stundenbeginn
 
-**1 — Die Lesekarten SQL I.** Öffnen Sie `14_Lesekarten_SQL_I.html` aus dem Klassenrepository (Ordner der Stunde vom 22.10.) im Browser (Doppelklick; die Seite läuft ohne Internet). Arbeiten Sie die drei Karten durch: Baustein lesen, Beispiele ausprobieren, die **Leitfrage** lösen und mit „Leitfrage prüfen“ kontrollieren. Dann die **gemischten Aufgaben**. Notieren Sie, wie viele Sie gelöst haben: … von 10.
+**1 — Übungen.** Dieselben Bausteine wie heute, an anderen Tabellen der Bibliothek. Arbeiten Sie wie in der Stunde: ausprobieren, dann notieren. Was Sie heute im Skript nicht geschafft haben, holen Sie vorher nach.
 
-Die Beispiele kommen aus dem Tierheim, die Leitfragen aus der Bibliothek — dieselben Bausteine wie heute, dazu ein paar neue (`BETWEEN`, `IN`, `NOT`). Was Sie heute im Skript nicht geschafft haben, holen Sie vorher nach.
+### Stufe 1 — SELECT und FROM
+
+**H1.1** Alle Merkmale aller Autorinnen und Autoren.
+
+**H1.2** Inventarnummer und Standort aller Exemplare.
+
+### Stufe 2 — ORDER BY
+
+**H2.1** Nachname, Vorname und Geburtsjahr aller Autorinnen und Autoren, die jüngste Person zuerst.
+
+**H2.2** Titel und Erscheinungsjahr aller Bücher, das neueste zuerst.
+
+### Stufe 3 — WHERE
+
+**H3.1** Name und Ort aller Verlage aus München.
+
+**H3.2** Nachname und Geburtsjahr aller Autorinnen und Autoren, die vor 1975 geboren sind.
+
+**H3.3** Inventarnummer und Zustand aller Exemplare im Standort `Magazin`.
+
+### Stufe 4 — AND und OR
+
+**H4.1** Name und Ort aller Verlage aus Berlin **oder** Hamburg.
+
+**H4.2** Inventarnummer aller Exemplare im Magazin, die im Zustand `gut` sind.
+
+**H4.3** Titel und Seitenzahl aller Bücher von Verlag 4 **oder** Verlag 5 mit **weniger** als 500 Seiten. Klammer!
+
+### Stufe 5 — IS NULL, LIKE, DISTINCT, LIMIT
+
+**H5.1** Nummer und Ausleihdatum aller Ausleihen, die **noch nicht zurückgegeben** sind (`rueckgabe_ist` ist leer).
+
+**H5.2** Nachname und Vorname aller Autorinnen und Autoren, deren Nachname mit **K** beginnt.
+
+**H5.3** Alle Zustände der Exemplare, **jeder nur einmal**.
+
+**H5.4** Titel und Seitenzahl der **zwei** dünnsten Bücher.
+
+### Gemischt
+
+**H6.1** Vorname und Nachname aller Leserinnen und Leser aus München **ohne** E-Mail-Adresse.
+
+**H6.2** Alle Orte, aus denen Leserinnen und Leser kommen, **jeder nur einmal**, alphabetisch.
+
+**H6.3** Nummer, Ausleihdatum und Rückgabe-Soll aller Ausleihen, die **noch nicht zurückgegeben** sind — die früheste Soll-Rückgabe zuerst.
+
+**H6.4** Titel und Seitenzahl aller Bücher von Verlag 2 **oder** Verlag 3 mit **weniger** als 400 Seiten, das dünnste zuerst. Klammer!
 
 **2 — Von Hand, ohne Rechner.** Schreiben Sie diese Abfrage **zuerst auf Papier** und bringen Sie das Blatt mit: *Titel und Seitenzahl aller Bücher von Verlag 2 mit mehr als 400 Seiten — das dickste zuerst.* Prüfen Sie sie danach am Rechner und notieren Sie, was Sie korrigieren mussten.
 

@@ -5,7 +5,6 @@
 | `02_Skript.md` | Skript der Stunde — Aufgaben und Hausaufgabe |
 | `05_SQL_Spickzettel.md` | SQL-Spickzettel (gilt das ganze Jahr) |
 | `05_Uebungen.sql` | SQL-Datei zum Mitarbeiten |
-| `14_Lesekarten_SQL_I.html` | Lesekarten SQL I (im Browser öffnen, läuft ohne Internet) |
 
 Diese Dateien sind zum **Lesen und Nacharbeiten**. Die Vorlagen zum
 Ausfüllen bekommen Sie im Unterricht auf Papier; hier sind die

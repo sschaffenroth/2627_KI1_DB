@@ -119,6 +119,82 @@
 
 
 -- ------------------------------------------------------------
+--  Hausaufgabe 1: Uebungen
+-- ------------------------------------------------------------
+
+-- Stufe 1 · SELECT und FROM
+
+-- H1.1  Alle Merkmale aller Autorinnen und Autoren.
+
+
+-- H1.2  Inventarnummer und Standort aller Exemplare.
+
+
+
+-- Stufe 2 · ORDER BY
+
+-- H2.1  Nachname, Vorname und Geburtsjahr aller Autorinnen und Autoren, die juengste Person zuerst
+
+
+-- H2.2  Titel und Erscheinungsjahr aller Buecher, das neueste zuerst.
+
+
+
+-- Stufe 3 · WHERE
+
+-- H3.1  Name und Ort aller Verlage aus Muenchen.
+
+
+-- H3.2  Nachname und Geburtsjahr aller Autorinnen und Autoren, die vor 1975 geboren sind.
+
+
+-- H3.3  Inventarnummer und Zustand aller Exemplare im Standort Magazin.
+
+
+
+-- Stufe 4 · AND und OR
+
+-- H4.1  Name und Ort aller Verlage aus Berlin oder Hamburg.
+
+
+-- H4.2  Inventarnummer aller Exemplare im Magazin, die im Zustand gut sind.
+
+
+-- H4.3  Titel und Seitenzahl aller Buecher von Verlag 4 oder Verlag 5 mit weniger als 500 Seiten. 
+
+
+
+-- Stufe 5 · IS NULL, LIKE, DISTINCT, LIMIT
+
+-- H5.1  Nummer und Ausleihdatum aller Ausleihen, die noch nicht zurueckgegeben sind (rueckgabe_ist
+
+
+-- H5.2  Nachname und Vorname aller Autorinnen und Autoren, deren Nachname mit K beginnt.
+
+
+-- H5.3  Alle Zustaende der Exemplare, jeder nur einmal.
+
+
+-- H5.4  Titel und Seitenzahl der zwei duennsten Buecher.
+
+
+
+-- Gemischt
+
+-- H6.1  Vorname und Nachname aller Leserinnen und Leser aus Muenchen ohne E-Mail-Adresse.
+
+
+-- H6.2  Alle Orte, aus denen Leserinnen und Leser kommen, jeder nur einmal, alphabetisch.
+
+
+-- H6.3  Nummer, Ausleihdatum und Rueckgabe-Soll aller Ausleihen, die noch nicht zurueckgegeben sin
+
+
+-- H6.4  Titel und Seitenzahl aller Buecher von Verlag 2 oder Verlag 3 mit weniger als 400 Seiten, 
+
+
+
+-- ------------------------------------------------------------
 --  Hausaufgabe 2: die Abfrage von Hand hier pruefen
 -- ------------------------------------------------------------
 
